@@ -158,6 +158,6 @@ Inspired by [Lameguy64](http://lameguy64.net/)'s graphics tutorial (in C) http:/
 
 Draw a single graphics primative (yellow square) on a purple background.
 
-Uses Silpheed/[HITMEN](http://hitmen.c02.at/index.html)'s `siplh.inc` PSX helpful asm routines, taken from the classic [Greentro intro source](http://hitmen.c02.at/html/psx_sources.html),
+Uses Silpheed/[HITMEN](http://hitmen.c02.at/index.html)'s `silph.inc` PSX helpful asm routines, taken from the classic [Greentro intro source](http://hitmen.c02.at/html/psx_sources.html),
 and converted (by me) from [spASM](http://www.psxdev.net/forum/viewtopic.php?t=150) syntax to a more standard style which is compatible with GNU `as` and MARS MIPS assembly. (... although perhaps I have used the less common comment style `//` rather than `#`?).
 
