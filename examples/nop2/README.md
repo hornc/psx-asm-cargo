@@ -61,6 +61,14 @@ To get this example to work we can just drop the `psexe.ld` file in the project 
 
     wget https://raw.githubusercontent.com/ayrtonm/psx-sdk-rs/master/psx/psexe.ld
 
+Now, with `psexe.ld` in place, we can run our MIPS NOP in Mednafen with
+
+    cargo run
+
+This demonstrates that for assembly only coding for the PSX, we are only using `cargo-psx` for its ability to generate PSX executables, which comes from its `psexe.ld` script.
+
+Getting the PSX to _do_ anything will be more complex, but this is a start.
+
 
 ### Stripping everything back and using `clang` to cross compile our .s directly:
 
@@ -83,3 +91,9 @@ Which gives us our 4069 byte PSX EXE from the first NOP example:
     $ head -c8 nop.exe
     PS-X EXE
 
+
+We can run our NOP executable using:
+
+    mednafen nop.exe
+
+It successfully does nothing. No error messages is the goal here.
