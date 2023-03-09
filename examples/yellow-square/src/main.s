@@ -9,8 +9,7 @@ __start:
     jal InitGPU         // initialise the GPU
     nop
 
-    //la $a0, purple_field
-    la $a0, square
+    la $a0, purple_field
     jal SendList        // send display list to GPU
     nop
 
@@ -25,13 +24,13 @@ main_loop:
 
 .data
 purple_field:
-    .byte 0xFF, 0xFF, 0xFF, 0x3
+    .word square - (0x80 - 3)<<24  // lower 24bits: ptr to next entry, upper 8bits: word size of current entry
     .word 0x027f003f  // GP0(02h) Fill Rectangle in VRAM
     .word 0x0         // Top left corner
     .word 0x00f00140  // y= 240, x= 320
 
 square:
-    .byte 0xFF, 0xFF, 0xFF, 0x5
+    .byte 0xff, 0xff, 0xff, 0x5
     .word 0x2800ffff  // GP0(28h) - Monochrome four-point polygon, opaque (Yellow)
     .word 0x00200020
     .word 0x00200060
