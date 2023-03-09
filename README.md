@@ -45,7 +45,7 @@ Install [Mednafen](https://mednafen.github.io/), a multi-system emulator.
 We'll be using its PSX emulation for testing, although this build output should work on other emulators and original PSX hardware (I have not yet tested).
 `psx-sdk-rs`' Mednafen integration is very smooth, and I am just using that for the moment.
 
-## New project setup ([NOP](examples/nop))
+## New project setup ([NOP](nop/))
 
 This is how to compile a single MIPS `NOP` as a minimal test of the toolchain.
 
@@ -114,16 +114,16 @@ Now we can test everything is set up correctly by building with:
 Output:
 ```
    Compiling compiler_builtins v0.1.87
-   Compiling core v0.0.0 (/home/charles/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
+   Compiling core v0.0.0 (/home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
    Compiling psx v0.1.6
 warning: MIPS-I support is experimental
-   Compiling rustc-std-workspace-core v1.99.0 (/home/charles/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/rustc-std-workspace-core)
+   Compiling rustc-std-workspace-core v1.99.0 (/home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/rustc-std-workspace-core)
 warning: MIPS-I support is experimental
 warning: MIPS-I support is experimental
-   Compiling alloc v0.0.0 (/home/charles/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc)
+   Compiling alloc v0.0.0 (/home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc)
 warning: MIPS-I support is experimental
 warning: MIPS-I support is experimental
-   Compiling nop v0.1.0 (/home/charles/code/MIPS/psx-asm-cargo/examples/nop)
+   Compiling nop v0.1.0 (/home/user/psx-asm-cargo/nop)
 warning: MIPS-I support is experimental
     Finished release [optimized] target(s) in 6.53s
 ```
@@ -143,15 +143,15 @@ And confim the Magic number / string of the PSX executable format:
 
 ## Examples
 
-### [nop](examples/nop)
+### [nop](nop/)
 A super minimal `NOP` example (described above) to test the toolchain is set up correctly and works with `cargo-psx`.
 
-### [nop2](examples/nop2)
+### [nop2](nop2/)
 Takes the previous `NOP` example and strips it back to the minimum: only uses the PSX EXE linker script from the Rust `psx` crate.
 Builds and runs with standard `cargo`, and also tests that the assmebler source can be built directly with `clang` and LLVM's `ldd`,
 just to confirm that we are only using the Rust build enviroment for convinience.
 
-### [yellow-square](examples/yellow-square)
+### [yellow-square](yellow-square/)
 
 Inspired by [Lameguy64](http://lameguy64.net/)'s graphics tutorial (in C) http://lameguy64.net/tutorials/pstutorials/chapter1/2-graphics.html
 , part of [Lameguy64's PlayStation Programming Series](http://lameguy64.net/tutorials/pstutorials/).
