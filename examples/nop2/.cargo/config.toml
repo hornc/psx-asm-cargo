@@ -1,0 +1,10 @@
+[build]
+target = "mipsel-sony-psx"
+rustflags = ["-Clink-arg=-Tpsexe.ld", "-Clink-arg=--oformat=binary"]
+
+[unstable]
+build-std = ["core"]
+
+[target.mipsel-sony-psx]
+runner = "mednafen"
+
