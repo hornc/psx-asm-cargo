@@ -1,13 +1,13 @@
-; MOD player by Silpheed of Hitmen (plays .HIT files)
-; This is VERY basic - only 4 channels, no effects, no finetunes...
-; Maybe a few bugs in it, but I haven't really noticed any
+# MOD player by Silpheed of Hitmen (plays .HIT files)
+# This is VERY basic - only 4 channels, no effects, no finetunes...
+# Maybe a few bugs in it, but I haven't really noticed any
 
-; HM_Init - Initialise SPU, read module info etc.
-; a0 - address of module data (must be word-aligned)
+# HM_Init - Initialise SPU, read module info etc.
+# a0 - address of module data (must be word-aligned)
 
 HM_Init     sw a0, HM_ModStart
             move t9, ra
-            li k1, $1f800000        ; assumes this will stay the same later on
+            li k1, $1f800000        # assumes this will stay the same later on
 
             move t0, zero
             li t1, $1010
@@ -117,7 +117,7 @@ HM_wait2
             bne t0,t1,HM_wait2
             nop
 
-            lw t0, $1014(k1)        ; transfer samples
+            lw t0, $1014(k1)        # transfer samples
             nop
             li t1,$f0ffffff
             and t0,t1
@@ -145,7 +145,7 @@ HM_wait2
             sw t0, $10c8(k1)
             nop
 
-HM_wait3                            ; wait till transfer finished
+HM_wait3                            # wait till transfer finished
             lw t0, $10c8(k1)
             li t1, $01000000
             and t0,t1
@@ -171,7 +171,7 @@ HM_wait3                            ; wait till transfer finished
 
 
 
-; HM_Poll - actual player routine to be called from vblank or rootcounter
+# HM_Poll - actual player routine to be called from vblank or rootcounter
 
 HM_Poll     move t9, ra
 
@@ -321,7 +321,7 @@ HM_skip2    move ra, t9
             nop
 
 
-HM_doEffects                            ; not implemented yet
+HM_doEffects                            # not implemented yet
             sb t0, HM_Tick
 
             move ra, t9
@@ -342,23 +342,23 @@ HM_wait1    subiu t7,t7,1
             nop
 
 
-HM_ModStart dw 0                ; start address of module
-HM_PattDataSize dw 0            ; size of pattern data
-HM_SampleEnd dw 0               ; address in SPU ram of end of samples (used to calculate amount of data to send)
-HM_RowPointer dw 0              ; pointer to current row to be processed
-HM_SmpAddress dcb 124,0         ; address in SPU ram of each sample
+HM_ModStart dw 0                # start address of module
+HM_PattDataSize dw 0            # size of pattern data
+HM_SampleEnd dw 0               # address in SPU ram of end of samples (used to calculate amount of data to send)
+HM_RowPointer dw 0              # pointer to current row to be processed
+HM_SmpAddress dcb 124,0         # address in SPU ram of each sample
 HM_keys dh 0
-HM_Speed db 6                   ; speed
-HM_Tick db 6                    ; current 'tick' of player
+HM_Speed db 6                   # speed
+HM_Tick db 6                    # current 'tick' of player
 HM_CurrOrder db 0
 HM_CurrRow db 0
 HM_CurrPattern db 0
-HM_SongLength db 0              ; number of orders
-HM_NumPatterns db 0             ; number of patterns
-HM_FineTunes dcb 31, 0          ; area for FT info for each sample
-HM_Volumes dcb 31, 0            ; same but for volume instead
-HM_ChanVol db 0,0,0,0           ; current volumes on channels
-HM_LastSmp db 0,0,0,0           ; last sample played on channel
+HM_SongLength db 0              # number of orders
+HM_NumPatterns db 0             # number of patterns
+HM_FineTunes dcb 31, 0          # area for FT info for each sample
+HM_Volumes dcb 31, 0            # same but for volume instead
+HM_ChanVol db 0,0,0,0           # current volumes on channels
+HM_LastSmp db 0,0,0,0           # last sample played on channel
 
 
 

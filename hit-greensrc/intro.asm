@@ -1,68 +1,68 @@
-; Another simple asm intro source by Silpheed of HITMEN
+# Another simple asm intro source by Silpheed of HITMEN
 
             org $80010000
 
             li sp, $801fff00
-            li k1, $1f800000            ; set to hardware base
+            li k1, $1f800000            # set to hardware base
 
             li a0, $08000009
-            jal InitGPU                 ; initialise the GPU
+            jal InitGPU                 # initialise the GPU
             nop
 
-            la a0, image                ; transfer image data to VRAM
+            la a0, image                # transfer image data to VRAM
             li a1, 320
             li a2, $820090
             li a3, 9360
             jal MEM2VRAM_IO
             nop
 
-            la a0, clut                 ; transfer clut data to VRAM
+            la a0, clut                 # transfer clut data to VRAM
             li a1, $1000140
             li a2, $10100
             li a3, 128
             jal MEM2VRAM_IO
             nop
 
-            jal InitPads                ; init pads, also the wait vsync routine
+            jal InitPads                # init pads, also the wait vsync routine
             nop
 
             la a0, module
-            jal HM_Init                 ; init the mod player
+            jal HM_Init                 # init the mod player
             nop
 
 
-; Main parts of the intro:
+# Main parts of the intro:
 
-; Part 1 - draw the lines across the top and bottom of the screen
+# Part 1 - draw the lines across the top and bottom of the screen
 
             li s0, 0
             li s1, 320
 part1
-            sh s0, line1                ; update line positions
+            sh s0, line1                # update line positions
             sh s1, line2
 
-            jal WaitIdle                ; wait for GPU to finish processing
+            jal WaitIdle                # wait for GPU to finish processing
             nop
 
-            jal WaitVSync               ; wait for vertical retrace period
+            jal WaitVSync               # wait for vertical retrace period
             nop
 
             la a0, list
-            jal SendList                ; send display list to GPU
+            jal SendList                # send display list to GPU
             nop
 
             slt s2,s0,320
             subiu s1,4
-            bnez s2, part1              ; loop until lines finished
+            bnez s2, part1              # loop until lines finished
             addiu s0,4
 
 
-; Part 2 - move logo down from top of screen
+# Part 2 - move logo down from top of screen
 
-            li s1, $ffffffae            ; (-82)
+            li s1, $ffffffae            # (-82)
 part2
-            sh s1, lpos1+2              ; update sprite positions
-            sh s1, lpos2+2              ; 2 sprites needed (logo is more than 256 pixels wide)
+            sh s1, lpos1+2              # update sprite positions
+            sh s1, lpos2+2              # 2 sprites needed (logo is more than 256 pixels wide)
 
             jal WaitIdle
             nop
@@ -79,36 +79,36 @@ part2
             addiu s1,2
 
 
-; Part 3 - the main part... do the text writer and play the music
+# Part 3 - the main part... do the text writer and play the music
 
-            li s0, 0                    ; page number
-            li s4, 0                    ; delay counter
+            li s0, 0                    # page number
+            li s4, 0                    # delay counter
 
 resetpage   sll s1,s0,2
             la s2, pages
             addu s2,s1
-            lw s1, (s2)                 ; read page address
+            lw s1, (s2)                 # read page address
 
-            li s2, 0                    ; char number
-            la s3, prim3                ; first char in display list
+            li s2, 0                    # char number
+            la s3, prim3                # first char in display list
 
 part3
-            jal HM_Poll                 ; call mod player
+            jal HM_Poll                 # call mod player
             nop
 
             slt t0, s2, 288
-            bnez t0, skipreset          ; dont reset until all chars updated
+            bnez t0, skipreset          # dont reset until all chars updated
             nop
 
-            slt t0, s4, 300             ; wait for 300 frames before continuing
+            slt t0, s4, 300             # wait for 300 frames before continuing
             bnez t0, skipupdate
             addiu s4,1
 
-            li s4, 0                    ; reset counter
-            addiu s0,1                  ; goto next page
+            li s4, 0                    # reset counter
+            addiu s0,1                  # goto next page
             andi s0,3
 
-            li t0, 0                    ; clear all chars
+            li t0, 0                    # clear all chars
             li t1, 82
             li t4, 0
             la t3, prim3
@@ -128,22 +128,22 @@ clearpage   sb t0, 12(t3)
             b resetpage
             nop
 
-skipreset   addu t0, s1, s2             ; address of current char
-            lb t1, (t0)                 ; read it
+skipreset   addu t0, s1, s2             # address of current char
+            lb t1, (t0)                 # read it
             nop
             subiu t1,32
 
             srl t0, t1, 4
-            sll t0, 3                   ; t0 = y offset of char in tpage
+            sll t0, 3                   # t0 = y offset of char in tpage
             andi t1, 15
             sll t1, 3
-            addiu t0, 82                ; t1 = x offset of char in tpage
+            addiu t0, 82                # t1 = x offset of char in tpage
 
-            sb t0, 13(s3)               ; update sprite in display list
+            sb t0, 13(s3)               # update sprite in display list
             sb t1, 12(s3)
 
-            addiu s3,16                 ; move to next sprite
-            addiu s2,1                  ; next char
+            addiu s3,16                 # move to next sprite
+            addiu s2,1                  # next char
 
 skipupdate
             jal WaitIdle
@@ -156,20 +156,20 @@ skipupdate
             jal SendList
             nop
 
-            j part3                     ; loop forever
+            j part3                     # loop forever
             nop
 
 
 
-include silph.inc                       ; some useful routines
+include silph.inc                       # some useful routines
 
-image incbin gfx.raw                    ; the raw image data for the logo and chars
-clut incbin gfx.clt                     ; clut info for above
+image incbin gfx.raw                    # the raw image data for the logo and chars
+clut incbin gfx.clt                     # clut info for above
 
 align 4
-list include list.inc                   ; the display list
+list include list.inc                   # the display list
 
-pages dw page1, page2, page3, page4     ; the pages to display
+pages dw page1, page2, page3, page4     # the pages to display
 
 page1
     db "------------------------"
