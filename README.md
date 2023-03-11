@@ -5,7 +5,7 @@ This is an experiment in setting up an assembler toolchain for the original Play
 Using:
 
 Cargo (Rust's build system) via [cargo-psx](https://github.com/ayrtonm/psx-sdk-rs) + LLVM with Rust's [`asm_experimental_arch`](https://doc.rust-lang.org/beta/unstable-book/language-features/asm-experimental-arch.html)
-to write pure MIPS32el assembler for the PSX's R3000 chip.
+to write pure MIPS32el assembly for the PSX's R3000 chip.
 
 Runner:
 * [Mednafen](https://mednafen.github.io/), as used by [psx-sdk-rs](https://github.com/ayrtonm/psx-sdk-rs)
@@ -98,10 +98,10 @@ global_asm!(include_str!("main.s"));
 
 This adds just enough to allow the use of the `global_asm!` macro, and sets up a panic handler, which is the minimum Rust we need to build something that works.
 
-Continuing the minimal theme, let's create a minimal assembler file `src/main.s`:
+Continuing the minimal theme, let's create a minimal assembly source file `src/main.s`:
 
 ```
-// Minimal MIPS assembler to test compilation.
+// Minimal MIPS assembly to test compilation.
 .global __start
 __start:
     nop
