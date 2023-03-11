@@ -12,7 +12,7 @@ Runner:
 
 
 Inspirations:
-* https://github.com/PeterLemon/PSX  (I had the idea to do revist PSX asm, then went looking for prior and recent art, this is what I found)
+* https://github.com/PeterLemon/PSX  (I had the idea to do revisit PSX asm, then went looking for prior and recent art, this is what I found)
 * [psx-sdk-rs](https://github.com/ayrtonm/psx-sdk-rs), although I'm bypassing all the helpful Rust by using `asm!` and `global-asm!`
 * Hitmen's Greentro!!!
 
@@ -148,15 +148,15 @@ A super minimal `NOP` example (described above) to test the toolchain is set up 
 
 ### [nop2](nop2/)
 Takes the previous `NOP` example and strips it back to the minimum: only uses the PSX EXE linker script from the Rust `psx` crate.
-Builds and runs with standard `cargo`, and also tests that the assmebler source can be built directly with `clang` and LLVM's `lld`,
-just to confirm that we are only using the Rust build enviroment for convinience.
+Builds and runs with standard `cargo`, and also tests that the assembly source can be built directly with `clang` and LLVM's `lld`,
+just to confirm that we are only using the Rust build environment for convenience.
 
 ### [yellow-square](yellow-square/)
 
 Inspired by [Lameguy64](http://lameguy64.net/)'s graphics tutorial (in C) http://lameguy64.net/tutorials/pstutorials/chapter1/2-graphics.html
 , part of [Lameguy64's PlayStation Programming Series](http://lameguy64.net/tutorials/pstutorials/).
 
-Draw a single graphics primative (yellow square) on a purple background.
+Draw a single graphics primitive (yellow square) on a purple background.
 
 Uses Silpheed/[HITMEN](http://hitmen.c02.at/index.html)'s `silph.inc` PSX helpful asm routines, taken from the classic [Greentro intro source](http://hitmen.c02.at/html/psx_sources.html),
 and converted (by me) from [spASM](http://www.psxdev.net/forum/viewtopic.php?t=150) syntax to a more standard style which is compatible with GNU `as` and MARS MIPS assembly.
