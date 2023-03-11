@@ -342,23 +342,23 @@ HM_wait1    subiu $t7,$t7,1
             nop
 
 
-HM_ModStart dw 0                # start address of module
-HM_PattDataSize dw 0            # size of pattern data
-HM_SampleEnd dw 0               # address in SPU ram of end of samples (used to calculate amount of data to send)
-HM_RowPointer dw 0              # pointer to current row to be processed
-HM_SmpAddress dcb 124,0         # address in SPU ram of each sample
-HM_keys dh 0
-HM_Speed db 6                   # speed
-HM_Tick db 6                    # current 'tick' of player
-HM_CurrOrder db 0
-HM_CurrRow db 0
-HM_CurrPattern db 0
-HM_SongLength db 0              # number of orders
-HM_NumPatterns db 0             # number of patterns
-HM_FineTunes dcb 31, 0          # area for FT info for each sample
-HM_Volumes dcb 31, 0            # same but for volume instead
-HM_ChanVol db 0,0,0,0           # current volumes on channels
-HM_LastSmp db 0,0,0,0           # last sample played on channel
+HM_ModStart .word 0                # start address of module
+HM_PattDataSize .word 0            # size of pattern data
+HM_SampleEnd .word 0               # address in SPU ram of end of samples (used to calculate amount of data to send)
+HM_RowPointer .word 0              # pointer to current row to be processed
+HM_SmpAddress .space 124         # address in SPU ram of each sample
+HM_keys .byte 0, 0
+HM_Speed .byte 6                   # speed
+HM_Tick .byte 6                    # current 'tick' of player
+HM_CurrOrder .byte 0
+HM_CurrRow .byte 0
+HM_CurrPattern .byte 0
+HM_SongLength .byte 0              # number of orders
+HM_NumPatterns .byte 0             # number of patterns
+HM_FineTunes .space 31          # area for FT info for each sample
+HM_Volumes .space 31            # same but for volume instead
+HM_ChanVol .byte 0,0,0,0           # current volumes on channels
+HM_LastSmp .byte 0,0,0,0           # last sample played on channel
 
 
 

@@ -161,76 +161,76 @@ skipupdate
 
 
 
-include silph.inc                       # some useful routines
+.include "silph.inc"                    # some useful routines
 
-image incbin gfx.raw                    # the raw image data for the logo and chars
-clut incbin gfx.clt                     # clut info for above
+image .incbin "gfx.raw"                 # the raw image data for the logo and chars
+clut .incbin "gfx.clt"                  # clut info for above
 
-align 4
-list include list.inc                   # the display list
+.align 4
+list .include "list.inc"                # the display list
 
-pages dw page1, page2, page3, page4     # the pages to display
+pages .word page1, page2, page3, page4     # the pages to display
 
 page1
-    db "------------------------"
-    db "   HITMEN Presents...   "
-    db "                        "
-    db "     The GREENtro!      "
-    db "                        "
-    db "   Hmm... I think this  "
-    db "  business of calling   "
-    db "  every release XXXXtro "
-    db "   is getting silly...  "
-    db "      dont you? :)      "
-    db "                        "
-    db "------------------------"
+    .ascii "------------------------"
+    .ascii "   HITMEN Presents...   "
+    .ascii "                        "
+    .ascii "     The GREENtro!      "
+    .ascii "                        "
+    .ascii "   Hmm... I think this  "
+    .ascii "  business of calling   "
+    .ascii "  every release XXXXtro "
+    .ascii "   is getting silly...  "
+    .ascii "      dont you? :)      "
+    .ascii "                        "
+    .ascii "------------------------"
 
 page2
-    db "                        "
-    db "     INTRO CREDITS:     "
-    db "                        "
-    db "                        "
-    db "CODING..........Silpheed"
-    db "                        "
-    db "LOGO..............Gunhed"
-    db "                        "
-    db "MUSIC............Unknown"
-    db "                        "
-    db "                        "
-    db "                        "
+    .ascii "                        "
+    .ascii "     INTRO CREDITS:     "
+    .ascii "                        "
+    .ascii "                        "
+    .ascii "CODING..........Silpheed"
+    .ascii "                        "
+    .ascii "LOGO..............Gunhed"
+    .ascii "                        "
+    .ascii "MUSIC............Unknown"
+    .ascii "                        "
+    .ascii "                        "
+    .ascii "                        "
 
 page3
-    db "                        "
-    db "Greets fly out to...    "
-    db "(in no particular order)"
-    db "                        "
-    db "BlackBag Napalm Creature"
-    db "Roncler Gang K-Comm Acon"
-    db "   Birdhouse Projects   "
-    db "   Vision Thing Fab-4   "
-    db "                        "
-    db "Special greets to Nagra "
-    db "     and Dodger...      "
-    db "                        "
+    .ascii "                        "
+    .ascii "Greets fly out to...    "
+    .ascii "(in no particular order)"
+    .ascii "                        "
+    .ascii "BlackBag Napalm Creature"
+    .ascii "Roncler Gang K-Comm Acon"
+    .ascii "   Birdhouse Projects   "
+    .ascii "   Vision Thing Fab-4   "
+    .ascii "                        "
+    .ascii "Special greets to Nagra "
+    .ascii "     and Dodger...      "
+    .ascii "                        "
 
 page4
-    db "                        "
-    db "                        "
-    db " Now go take a look at  "
-    db " the source for this    "
-    db " little thing and get   "
-    db "  coding!!              "
-    db "                        "
-    db "                        "
-    db "     - Silpheed         "
-    db "                        "
-    db "                        "
-    db "HITMEN - Ruling in 1998!"
+    .ascii "                        "
+    .ascii "                        "
+    .ascii " Now go take a look at  "
+    .ascii " the source for this    "
+    .ascii " little thing and get   "
+    .ascii "  coding!!              "
+    .ascii "                        "
+    .ascii "                        "
+    .ascii "     - Silpheed         "
+    .ascii "                        "
+    .ascii "                        "
+    .ascii "HITMEN - Ruling in 1998!"
 
-module incbin thesong.hit
+module .incbin "thesong.hit"
 
-align 4
-include hitmod.inc
+.align 4
+.include "hitmod.inc"
 
 
 

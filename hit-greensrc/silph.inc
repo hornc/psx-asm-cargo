@@ -184,7 +184,7 @@ WaitVSync
             jr $ra
             nop
 
-pad_buf dw 0    # pad data is automatically stored here every frame
-pad_data dw 0   # pad data copied here (read it from here if using the WaitVSync routine)
+pad_buf .word 0    # pad data is automatically stored here every frame
+pad_data .word 0   # pad data copied here (read it from here if using the WaitVSync routine)
 
 
