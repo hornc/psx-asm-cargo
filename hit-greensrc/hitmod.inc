@@ -265,7 +265,7 @@ HM_skip4:
             li $t3, 1
 
             lh $t4, HM_keys
-            sllv $t3, $t8
+            sllv $t3, $t3, $t8
             or $t4, $t3
             sh $t4, HM_keys
 
