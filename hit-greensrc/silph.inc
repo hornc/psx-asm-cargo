@@ -5,15 +5,15 @@
 
 # Define some hardware registers:
 
-GP0 equ 0x1810
-GP1 equ 0x1814
-IREG equ 0x1070
-IMASK equ 0x1074
-DPCR equ 0x10f0
-DICR equ 0x10f4
-D2_MADR equ 0x10a0
-D2_BCR equ 0x10a4
-D2_CHCR equ 0x10a8
+.equ GP0, 0x1810
+.equ GP1, 0x1814
+.equ IREG, 0x1070
+.equ IMASK, 0x1074
+.equ DPCR, 0x10f0
+.equ DICR, 0x10f4
+.equ D2_MADR, 0x10a0
+.equ D2_BCR, 0x10a4
+.equ D2_CHCR, 0x10a8
 
 # SendList - sends a list of primitives to GPU
 # in:   $a0 - address of list
