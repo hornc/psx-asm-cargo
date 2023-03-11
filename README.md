@@ -148,7 +148,7 @@ A super minimal `NOP` example (described above) to test the toolchain is set up 
 
 ### [nop2](nop2/)
 Takes the previous `NOP` example and strips it back to the minimum: only uses the PSX EXE linker script from the Rust `psx` crate.
-Builds and runs with standard `cargo`, and also tests that the assmebler source can be built directly with `clang` and LLVM's `ldd`,
+Builds and runs with standard `cargo`, and also tests that the assmebler source can be built directly with `clang` and LLVM's `lld`,
 just to confirm that we are only using the Rust build enviroment for convinience.
 
 ### [yellow-square](yellow-square/)
