@@ -1,7 +1,8 @@
 # Another simple asm intro source by Silpheed of HITMEN
-
-            org 0x80010000
-
+            .set noreorder
+            #org 0x80010000
+.global __start
+__start:
             li $sp, 0x801fff00
             li $k1, 0x1f800000            # set to hardware base
 

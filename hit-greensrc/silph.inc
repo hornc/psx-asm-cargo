@@ -3,6 +3,8 @@
 
 # NOTE: register $k1 is expected to contain 0x1f800000 (hardware base)
 
+.set noreorder
+
 # Define some hardware registers:
 
 .equ GP0, 0x1810

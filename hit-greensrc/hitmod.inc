@@ -2,6 +2,8 @@
 # This is VERY basic - only 4 channels, no effects, no finetunes...
 # Maybe a few bugs in it, but I haven't really noticed any
 
+.set noreorder
+
 # HM_Init - Initialise SPU, read module info etc.
 # $a0 - address of module data (must be word-aligned)
 
