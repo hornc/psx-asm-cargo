@@ -1,39 +1,39 @@
 # A bunch of handy PSX routines
 # Silpheed/HITMEN September 1998
 
-# NOTE: register k1 is expected to contain $1f800000 (hardware base)
+# NOTE: register k1 is expected to contain 0x1f800000 (hardware base)
 
 # Define some hardware registers:
 
-GP0 equ $1810
-GP1 equ $1814
-IREG equ $1070
-IMASK equ $1074
-DPCR equ $10f0
-DICR equ $10f4
-D2_MADR equ $10a0
-D2_BCR equ $10a4
-D2_CHCR equ $10a8
+GP0 equ 0x1810
+GP1 equ 0x1814
+IREG equ 0x1070
+IMASK equ 0x1074
+DPCR equ 0x10f0
+DICR equ 0x10f4
+D2_MADR equ 0x10a0
+D2_BCR equ 0x10a4
+D2_CHCR equ 0x10a8
 
 # SendList - sends a list of primitives to GPU
 # in:   a0 - address of list
 
 SendList
             move t9, ra
-            li t2, $04000002
+            li t2, 0x04000002
             jal WaitGPU
             nop
 
             lw t3, DPCR(k1)
             sw zero, DICR(k1)
-            ori t3, $800
+            ori t3, 0x800
             sw t3, DPCR(k1)
 
 
             sw t2, GP1(k1)
             sw a0, D2_MADR(k1)
             sw zero, D2_BCR(k1)
-            li t1, $01000401
+            li t1, 0x01000401
             sw t1, D2_CHCR(k1)
 
             move ra, t9
@@ -44,7 +44,7 @@ SendList
 
 WaitGPU
             lw t1, GP1(k1)
-            li t0, $10000000
+            li t0, 0x10000000
             and t1, t1, t0
             beqz t1, WaitGPU
             nop
@@ -61,10 +61,10 @@ WaitGPU
 MEM2VRAM_IO
             move t3,ra
             jal WaitIdle
-            li t2, $04000000
+            li t2, 0x04000000
             sw t2, GP1(k1)
-            li t0, $01000000
-            li t1, $a0000000
+            li t0, 0x01000000
+            li t1, 0xa0000000
             sw t0, GP1(k1)
             sw t1, GP0(k1)
             sw a1, GP0(k1)
@@ -89,7 +89,7 @@ M2VIO_loop
 # WaitIdle - waits until GPU is idle
 
 WaitIdle
-            li t1, $04000000
+            li t1, 0x04000000
             lw t0, GP1(k1)
             nop
             and t0, t0, t1
@@ -106,39 +106,39 @@ InitGPU
             move t3,ra
             sw zero, GP1(k1)            # reset
 
-            li t2, $03000001
+            li t2, 0x03000001
             sw t2, GP1(k1)              # disable display
 
-            li t2, $06c40240            # horizontal start/end
+            li t2, 0x06c40240            # horizontal start/end
             sw t2, GP1(k1)
             nop
 
-            li t2, $07049025            # vertical start/end
+            li t2, 0x07049025            # vertical start/end
             sw t2, GP1(k1)
             nop
 
-            li t2, $e1000685            # draw mode, texture page = (8bit,320,0)
+            li t2, 0xe1000685            # draw mode, texture page = (8bit,320,0)
             jal WaitGPU
             nop
             sw t2, GP0(k1)
             nop
 
             jal WaitGPU
-            li t2, $e3000000            # clip start
+            li t2, 0xe3000000            # clip start
             sw t2, GP0(k1)
             nop
 
-            li t2, $e407fd3f            # clip end
+            li t2, 0xe407fd3f            # clip end
             jal WaitGPU
             nop
             sw t2, GP0(k1)
 
-            li t2, $05000000            # display offset
+            li t2, 0x05000000            # display offset
             jal WaitGPU
             nop
             sw t2, GP0(k1)
 
-            li t2, $e5000000            # draw offset
+            li t2, 0xe5000000            # draw offset
             jal WaitGPU
             nop
             sw t2, GP0(k1)
@@ -146,7 +146,7 @@ InitGPU
             sw a0, GP1(k1)              # set display mode
             nop
 
-            li t2, $03000000
+            li t2, 0x03000000
             sw t2, GP1(k1)              # enable display
 
             move ra,t3
@@ -159,9 +159,9 @@ InitGPU
 
 InitPads
             move fp, ra
-            li t1, $15
-            li a0, $20000001
-            li t2, $b0
+            li t1, 0x15
+            li a0, 0x20000001
+            li t2, 0xb0
             la a1, pad_buf
             jalr t2
             nop
@@ -175,9 +175,9 @@ InitPads
 
 WaitVSync
             lw t0, pad_buf
-            lui t1, $ffff
+            lui t1, 0xffff
             beqz t0, WaitVSync
-            ori t1, $ffff
+            ori t1, 0xffff
             sw zero, pad_buf
             xor t0,t1                   # reverse bits
             sw t0, pad_data

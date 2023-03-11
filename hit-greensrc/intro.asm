@@ -1,24 +1,24 @@
 # Another simple asm intro source by Silpheed of HITMEN
 
-            org $80010000
+            org 0x80010000
 
-            li sp, $801fff00
-            li k1, $1f800000            # set to hardware base
+            li sp, 0x801fff00
+            li k1, 0x1f800000            # set to hardware base
 
-            li a0, $08000009
+            li a0, 0x08000009
             jal InitGPU                 # initialise the GPU
             nop
 
             la a0, image                # transfer image data to VRAM
             li a1, 320
-            li a2, $820090
+            li a2, 0x820090
             li a3, 9360
             jal MEM2VRAM_IO
             nop
 
             la a0, clut                 # transfer clut data to VRAM
-            li a1, $1000140
-            li a2, $10100
+            li a1, 0x1000140
+            li a2, 0x10100
             li a3, 128
             jal MEM2VRAM_IO
             nop
@@ -59,7 +59,7 @@ part1
 
 # Part 2 - move logo down from top of screen
 
-            li s1, $ffffffae            # (-82)
+            li s1, 0xffffffae            # (-82)
 part2
             sh s1, lpos1+2              # update sprite positions
             sh s1, lpos2+2              # 2 sprites needed (logo is more than 256 pixels wide)

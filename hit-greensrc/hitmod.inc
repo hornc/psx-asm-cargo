@@ -7,18 +7,18 @@
 
 HM_Init     sw a0, HM_ModStart
             move t9, ra
-            li k1, $1f800000        # assumes this will stay the same later on
+            li k1, 0x1f800000        # assumes this will stay the same later on
 
             move t0, zero
-            li t1, $1010
+            li t1, 0x1010
             addiu t2, a0,20
 HM_GetSmpInfo
             lh t3, 22(t2)
             nop
-            andi t4,t3,$ff
+            andi t4,t3,0xff
             sll t4, 8
             srl t3,8
-            andi t3,t3,$ff
+            andi t3,t3,0xff
             or t3,t4
 
             la t4, HM_SmpAddress
@@ -45,36 +45,36 @@ HM_GetSmpInfo
 
             sw t1, HM_SampleEnd
 
-            lw t0, $10f0(k1)
-            li at, $b0000
+            lw t0, 0x10f0(k1)
+            li at, 0xb0000
             or t0,at
-            sw t0, $10f0(k1)
+            sw t0, 0x10f0(k1)
 
-            li t1, $3000
-            sh t1, $1d80(k1)
-            sh t1, $1d82(k1)
-            sh zero, $1daa(k1)
+            li t1, 0x3000
+            sh t1, 0x1d80(k1)
+            sh t1, 0x1d82(k1)
+            sh zero, 0x1daa(k1)
 
             jal HM_WaitSPU
 
             li t2, 4
-            sh t2, $1dac(k1)
+            sh t2, 0x1dac(k1)
 
             jal HM_WaitSPU
             nop
 
-            li t0, $8000
-            sh t0, $1daa(k1)
+            li t0, 0x8000
+            sh t0, 0x1daa(k1)
             nop
 
-            li t0, $1010>>3
-            sh t0, $1da6(k1)
+            li t0, 0x1010>>3
+            sh t0, 0x1da6(k1)
 
-            lh t1, $1daa(k1)
+            lh t1, 0x1daa(k1)
             nop
-            andi t1,t1,$ffcf
-            ori t1,t1,$20
-            sh t1, $1daa(k1)
+            andi t1,t1,0xffcf
+            ori t1,t1,0x20
+            sh t1, 0x1daa(k1)
 
             lb t0, 950(a0)
             li t1, 952
@@ -111,58 +111,58 @@ HM_skip1    addiu t1,1
             sw t4, HM_PattDataSize
 
 HM_wait2
-            lh t0, $1daa(k1)
-            li t1, $20
-            andi t0,t0,$30
+            lh t0, 0x1daa(k1)
+            li t1, 0x20
+            andi t0,t0,0x30
             bne t0,t1,HM_wait2
             nop
 
-            lw t0, $1014(k1)        # transfer samples
+            lw t0, 0x1014(k1)        # transfer samples
             nop
-            li t1,$f0ffffff
+            li t1,0xf0ffffff
             and t0,t1
-            li t1, $20000000
+            li t1, 0x20000000
             or t0,t1
-            sw t0, $1014(k1)
+            sw t0, 0x1014(k1)
 
             lw t1, HM_PattDataSize
             addiu t0, a0, 1084
             addu t0,t1
 
-            sw t0, $10c0(k1)
+            sw t0, 0x10c0(k1)
 
             lw t1, HM_SampleEnd
-            li t0, $1010
+            li t0, 0x1010
             subu t0,t1,t0
             srl t0,6
             addiu t0,1
             sll t0, 16
-            ori t0, $10
-            sw t0, $10c4(k1)
+            ori t0, 0x10
+            sw t0, 0x10c4(k1)
             nop
 
-            li t0, $01000201
-            sw t0, $10c8(k1)
+            li t0, 0x01000201
+            sw t0, 0x10c8(k1)
             nop
 
 HM_wait3                            # wait till transfer finished
-            lw t0, $10c8(k1)
-            li t1, $01000000
+            lw t0, 0x10c8(k1)
+            li t1, 0x01000000
             and t0,t1
             bnez t0,HM_wait3
             nop
 
-            li t0, $c000
-            sh t0, $1daa(k1)
+            li t0, 0xc000
+            sh t0, 0x1daa(k1)
 
-            sh zero, $1c08(k1)
-            sh zero, $1c0a(k1)
-            sh zero, $1c18(k1)
-            sh zero, $1c1a(k1)
-            sh zero, $1c28(k1)
-            sh zero, $1c2a(k1)
-            sh zero, $1c38(k1)
-            sh zero, $1c3a(k1)
+            sh zero, 0x1c08(k1)
+            sh zero, 0x1c0a(k1)
+            sh zero, 0x1c18(k1)
+            sh zero, 0x1c1a(k1)
+            sh zero, 0x1c28(k1)
+            sh zero, 0x1c2a(k1)
+            sh zero, 0x1c38(k1)
+            sh zero, 0x1c3a(k1)
 
             move ra, t9
             jr ra
@@ -192,8 +192,8 @@ HM_doRow
             nop
 
             srl t2,t1,20
-            andi t2, $f
-            andi t3,t1,$f0
+            andi t2, 0xf
+            andi t3,t1,0xf0
             or t2, t3
 
             beqz t2, HM_skip4
@@ -211,17 +211,17 @@ HM_doRow
             sb t2, (t4)
             nop
 HM_skip4
-            andi t2,t1,$f
+            andi t2,t1,0xf
             sll t2,t2,8
             srl t3,t1,8
-            andi t3,$ff
+            andi t3,0xff
             or t2,t3
 
             beqz t2, HM_skip5
             nop
 
             sll t1,t8,4
-            addiu t1, $1c00
+            addiu t1, 0x1c00
             addu t1, k1
 
             la t3, HM_ChanVol
@@ -276,8 +276,8 @@ HM_skip5
 
             lh t3, HM_keys
             nop
-            sh t3, $1d88(k1)
-            sh zero, $1d8a(k1)
+            sh t3, 0x1d88(k1)
+            sh zero, 0x1d8a(k1)
             sh zero, HM_keys
 
             lb t0, HM_CurrRow
@@ -329,13 +329,13 @@ HM_doEffects                            # not implemented yet
             nop
 
 
-HM_WaitSPU  li t7, $7ff
+HM_WaitSPU  li t7, 0x7ff
 HM_wait1    subiu t7,t7,1
             bgtz t7, HM_wait1
             nop
-            lh t7, $1dae(k1)
+            lh t7, 0x1dae(k1)
             nop
-            andi t7,t7,$7ff
+            andi t7,t7,0x7ff
             bnez t7, HM_WaitSPU
             nop
             jr ra
