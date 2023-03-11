@@ -46,8 +46,10 @@ HM_GetSmpInfo:
             sw $t1, HM_SampleEnd
 
             lw $t0, 0x10f0($k1)
-            li at, 0xb0000
-            or $t0,at
+	  .set noat
+            li $at, 0xb0000
+            or $t0, $at
+	  .set at
             sw $t0, 0x10f0($k1)
 
             li $t1, 0x3000
