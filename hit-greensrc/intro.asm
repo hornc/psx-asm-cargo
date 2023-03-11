@@ -52,7 +52,7 @@ part1:
             nop
 
             slt $s2,$s0,320
-            subiu $s1,4
+            addiu $s1,-4
             bnez $s2, part1              # loop until lines finished
             addiu $s0,4
 
@@ -131,7 +131,7 @@ clearpage:   sb $t0, 12($t3)
 skipreset:   addu $t0, $s1, $s2             # address of current char
             lb $t1, ($t0)                 # read it
             nop
-            subiu $t1,32
+            addiu $t1,-32
 
             srl $t0, $t1, 4
             sll $t0, 3                   # $t0 = y offset of char in tpage

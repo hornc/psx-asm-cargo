@@ -330,7 +330,7 @@ HM_doEffects:                            # not implemented yet
 
 
 HM_WaitSPU:  li $t7, 0x7ff
-HM_wait1:    subiu $t7,$t7,1
+HM_wait1:    addiu $t7,$t7,-1
             bgtz $t7, HM_wait1
             nop
             lh $t7, 0x1dae($k1)

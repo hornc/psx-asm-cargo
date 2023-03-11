@@ -75,7 +75,7 @@ MEM2VRAM_IO:
 
 M2VIO_loop:
             lw $t1, ($t2)
-            subiu $t0,$t0,1
+            addiu $t0,$t0,-1
             sw $t1, GP0($k1)
             addiu $t2,$t2,4
             bne $zero,$t0,M2VIO_loop
