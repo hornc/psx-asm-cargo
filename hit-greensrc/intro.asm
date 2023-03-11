@@ -37,7 +37,7 @@
 
             li $s0, 0
             li $s1, 320
-part1
+part1:
             sh $s0, line1                # update line positions
             sh $s1, line2
 
@@ -60,7 +60,7 @@ part1
 # Part 2 - move logo down from top of screen
 
             li $s1, 0xffffffae            # (-82)
-part2
+part2:
             sh $s1, lpos1+2              # update sprite positions
             sh $s1, lpos2+2              # 2 sprites needed (logo is more than 256 pixels wide)
 
@@ -84,7 +84,7 @@ part2
             li $s0, 0                    # page number
             li $s4, 0                    # delay counter
 
-resetpage   sll $s1,$s0,2
+resetpage:   sll $s1,$s0,2
             la $s2, pages
             addu $s2,$s1
             lw $s1, ($s2)                 # read page address
@@ -92,7 +92,7 @@ resetpage   sll $s1,$s0,2
             li $s2, 0                    # char number
             la $s3, prim3                # first char in display list
 
-part3
+part3:
             jal HM_Poll                 # call mod player
             nop
 
@@ -113,7 +113,7 @@ part3
             li $t4, 0
             la $t3, prim3
 
-clearpage   sb $t0, 12($t3)
+clearpage:   sb $t0, 12($t3)
             sb $t1, 13($t3)
 
             addiu $t3, 16
@@ -128,7 +128,7 @@ clearpage   sb $t0, 12($t3)
             b resetpage
             nop
 
-skipreset   addu $t0, $s1, $s2             # address of current char
+skipreset:   addu $t0, $s1, $s2             # address of current char
             lb $t1, ($t0)                 # read it
             nop
             subiu $t1,32
@@ -145,7 +145,7 @@ skipreset   addu $t0, $s1, $s2             # address of current char
             addiu $s3,16                 # move to next sprite
             addiu $s2,1                  # next char
 
-skipupdate
+skipupdate:
             jal WaitIdle
             nop
 
@@ -163,15 +163,15 @@ skipupdate
 
 .include "silph.inc"                    # some useful routines
 
-image .incbin "gfx.raw"                 # the raw image data for the logo and chars
-clut .incbin "gfx.clt"                  # clut info for above
+image: .incbin "gfx.raw"                 # the raw image data for the logo and chars
+clut: .incbin "gfx.clt"                  # clut info for above
 
 .align 4
-list .include "list.inc"                # the display list
+list: .include "list.inc"                # the display list
 
-pages .word page1, page2, page3, page4     # the pages to display
+pages: .word page1, page2, page3, page4     # the pages to display
 
-page1
+page1:
     .ascii "------------------------"
     .ascii "   HITMEN Presents...   "
     .ascii "                        "
@@ -185,7 +185,7 @@ page1
     .ascii "                        "
     .ascii "------------------------"
 
-page2
+page2:
     .ascii "                        "
     .ascii "     INTRO CREDITS:     "
     .ascii "                        "
@@ -199,7 +199,7 @@ page2
     .ascii "                        "
     .ascii "                        "
 
-page3
+page3:
     .ascii "                        "
     .ascii "Greets fly out to...    "
     .ascii "(in no particular order)"
@@ -213,7 +213,7 @@ page3
     .ascii "     and Dodger...      "
     .ascii "                        "
 
-page4
+page4:
     .ascii "                        "
     .ascii "                        "
     .ascii " Now go take a look at  "
@@ -227,7 +227,7 @@ page4
     .ascii "                        "
     .ascii "HITMEN - Ruling in 1998!"
 
-module .incbin "thesong.hit"
+module: .incbin "thesong.hit"
 
 .align 4
 .include "hitmod.inc"

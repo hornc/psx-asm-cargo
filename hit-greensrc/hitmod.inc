@@ -5,14 +5,14 @@
 # HM_Init - Initialise SPU, read module info etc.
 # $a0 - address of module data (must be word-aligned)
 
-HM_Init     sw $a0, HM_ModStart
+HM_Init:     sw $a0, HM_ModStart
             move $t9, $ra
             li $k1, 0x1f800000        # assumes this will stay the same later on
 
             move $t0, $zero
             li $t1, 0x1010
             addiu $t2, $a0,20
-HM_GetSmpInfo
+HM_GetSmpInfo:
             lh $t3, 22($t2)
             nop
             andi $t4,$t3,0xff
@@ -89,7 +89,7 @@ HM_GetSmpInfo
             addu $t2, 1084
             sw $t2, HM_RowPointer
             nop
-HM_ReadOrders
+HM_ReadOrders:
             lb $t2, ($t1)
             nop
             slt $t3, $t2, $t4
@@ -98,7 +98,7 @@ HM_ReadOrders
 
             move $t4, $t2
 
-HM_skip1    addiu $t1,1
+HM_skip1:    addiu $t1,1
             slt $t2,$t0,127
             bnez $t2, HM_ReadOrders
             addiu $t0,1
@@ -110,7 +110,7 @@ HM_skip1    addiu $t1,1
             sll $t4,10
             sw $t4, HM_PattDataSize
 
-HM_wait2
+HM_wait2:
             lh $t0, 0x1daa($k1)
             li $t1, 0x20
             andi $t0,$t0,0x30
@@ -145,7 +145,7 @@ HM_wait2
             sw $t0, 0x10c8($k1)
             nop
 
-HM_wait3                            # wait till transfer finished
+HM_wait3:                            # wait till transfer finished
             lw $t0, 0x10c8($k1)
             li $t1, 0x01000000
             and $t0,$t1
@@ -173,7 +173,7 @@ HM_wait3                            # wait till transfer finished
 
 # HM_Poll - actual player routine to be called from vblank or rootcounter
 
-HM_Poll     move $t9, $ra
+HM_Poll:     move $t9, $ra
 
             lb $t0, HM_Tick
             lb $t1, HM_Speed
@@ -184,7 +184,7 @@ HM_Poll     move $t9, $ra
             nop
 
             move $t8, $zero
-HM_doRow
+HM_doRow:
             lw $t0, HM_RowPointer
             nop
 
@@ -210,7 +210,7 @@ HM_doRow
             addu $t4, $t8
             sb $t2, ($t4)
             nop
-HM_skip4
+HM_skip4:
             andi $t2,$t1,0xf
             sll $t2,$t2,8
             srl $t3,$t1,8
@@ -265,7 +265,7 @@ HM_skip4
             or $t4, $t3
             sh $t4, HM_keys
 
-HM_skip5
+HM_skip5:
             addiu $t0, 4
             sw $t0, HM_RowPointer
             nop
@@ -300,7 +300,7 @@ HM_skip5
 
             move $t1, $zero
 
-HM_skip3    lw $t2, HM_ModStart
+HM_skip3:    lw $t2, HM_ModStart
             sb $t1, HM_CurrOrder
             addu $t2,$t2,$t1
             lb $t2, 952($t2)
@@ -316,12 +316,12 @@ HM_skip3    lw $t2, HM_ModStart
             addu $t2,1084
             sw $t2, HM_RowPointer
 
-HM_skip2    move $ra, $t9
+HM_skip2:    move $ra, $t9
             jr $ra
             nop
 
 
-HM_doEffects                            # not implemented yet
+HM_doEffects:                            # not implemented yet
             sb $t0, HM_Tick
 
             move $ra, $t9
@@ -329,8 +329,8 @@ HM_doEffects                            # not implemented yet
             nop
 
 
-HM_WaitSPU  li $t7, 0x7ff
-HM_wait1    subiu $t7,$t7,1
+HM_WaitSPU:  li $t7, 0x7ff
+HM_wait1:    subiu $t7,$t7,1
             bgtz $t7, HM_wait1
             nop
             lh $t7, 0x1dae($k1)
@@ -342,23 +342,23 @@ HM_wait1    subiu $t7,$t7,1
             nop
 
 
-HM_ModStart .word 0                # start address of module
-HM_PattDataSize .word 0            # size of pattern data
-HM_SampleEnd .word 0               # address in SPU ram of end of samples (used to calculate amount of data to send)
-HM_RowPointer .word 0              # pointer to current row to be processed
-HM_SmpAddress .space 124         # address in SPU ram of each sample
-HM_keys .byte 0, 0
-HM_Speed .byte 6                   # speed
-HM_Tick .byte 6                    # current 'tick' of player
-HM_CurrOrder .byte 0
-HM_CurrRow .byte 0
-HM_CurrPattern .byte 0
-HM_SongLength .byte 0              # number of orders
-HM_NumPatterns .byte 0             # number of patterns
-HM_FineTunes .space 31          # area for FT info for each sample
-HM_Volumes .space 31            # same but for volume instead
-HM_ChanVol .byte 0,0,0,0           # current volumes on channels
-HM_LastSmp .byte 0,0,0,0           # last sample played on channel
+HM_ModStart: .word 0                # start address of module
+HM_PattDataSize: .word 0            # size of pattern data
+HM_SampleEnd: .word 0               # address in SPU ram of end of samples (used to calculate amount of data to send)
+HM_RowPointer: .word 0              # pointer to current row to be processed
+HM_SmpAddress: .space 124         # address in SPU ram of each sample
+HM_keys: .byte 0, 0
+HM_Speed: .byte 6                   # speed
+HM_Tick: .byte 6                    # current 'tick' of player
+HM_CurrOrder: .byte 0
+HM_CurrRow: .byte 0
+HM_CurrPattern: .byte 0
+HM_SongLength: .byte 0              # number of orders
+HM_NumPatterns: .byte 0             # number of patterns
+HM_FineTunes: .space 31          # area for FT info for each sample
+HM_Volumes: .space 31            # same but for volume instead
+HM_ChanVol: .byte 0,0,0,0           # current volumes on channels
+HM_LastSmp: .byte 0,0,0,0           # last sample played on channel
 
 
 

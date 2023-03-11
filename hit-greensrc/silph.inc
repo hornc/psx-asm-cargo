@@ -18,7 +18,7 @@
 # SendList - sends a list of primitives to GPU
 # in:   $a0 - address of list
 
-SendList
+SendList:
             move $t9, $ra
             li $t2, 0x04000002
             jal WaitGPU
@@ -42,7 +42,7 @@ SendList
 
 # WaitGPU - waits until GPU ready to receive commands
 
-WaitGPU
+WaitGPU:
             lw $t1, GP1($k1)
             li $t0, 0x10000000
             and $t1, $t1, $t0
@@ -58,7 +58,7 @@ WaitGPU
 #        $a2 - w,h    (h << 16 | w)
 #        $a3 - amount to copy (in words)
 
-MEM2VRAM_IO
+MEM2VRAM_IO:
             move $t3,$ra
             jal WaitIdle
             li $t2, 0x04000000
@@ -73,7 +73,7 @@ MEM2VRAM_IO
             move $t0, $a3
             move $t2, $a0
 
-M2VIO_loop
+M2VIO_loop:
             lw $t1, ($t2)
             subiu $t0,$t0,1
             sw $t1, GP0($k1)
@@ -88,7 +88,7 @@ M2VIO_loop
 
 # WaitIdle - waits until GPU is idle
 
-WaitIdle
+WaitIdle:
             li $t1, 0x04000000
             lw $t0, GP1($k1)
             nop
@@ -102,7 +102,7 @@ WaitIdle
 # InitGPU - basic GPU init routine
 # in:  $a0 - display mode
 
-InitGPU
+InitGPU:
             move $t3,$ra
             sw $zero, GP1($k1)            # reset
 
@@ -157,7 +157,7 @@ InitGPU
 # InitPads - initialise joypads, also needed for vsync wait routine
 # trashes: $fp
 
-InitPads
+InitPads:
             move $fp, $ra
             li $t1, 0x15
             li $a0, 0x20000001
@@ -173,7 +173,7 @@ InitPads
 # WaitVSync - waits for vertical retrace period, relies on InitPads above
 #           - also copies xor'ed pad data to pad_data variable
 
-WaitVSync
+WaitVSync:
             lw $t0, pad_buf
             lui $t1, 0xffff
             beqz $t0, WaitVSync
@@ -184,7 +184,7 @@ WaitVSync
             jr $ra
             nop
 
-pad_buf .word 0    # pad data is automatically stored here every frame
-pad_data .word 0   # pad data copied here (read it from here if using the WaitVSync routine)
+pad_buf: .word 0    # pad data is automatically stored here every frame
+pad_data: .word 0   # pad data copied here (read it from here if using the WaitVSync routine)
 
 
