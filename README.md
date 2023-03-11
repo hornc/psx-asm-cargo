@@ -161,3 +161,24 @@ Draw a single graphics primative (yellow square) on a purple background.
 Uses Silpheed/[HITMEN](http://hitmen.c02.at/index.html)'s `silph.inc` PSX helpful asm routines, taken from the classic [Greentro intro source](http://hitmen.c02.at/html/psx_sources.html),
 and converted (by me) from [spASM](http://www.psxdev.net/forum/viewtopic.php?t=150) syntax to a more standard style which is compatible with GNU `as` and MARS MIPS assembly. (... although perhaps I have used the less common comment style `//` rather than `#`?).
 
+### [Greentro](hit-greensrc)
+
+Source conversion of the classic 1998 Greentro spASM intro into the form that compiles with this toolchain.
+
+Most conversions made programatically using `sed` (see commit comments for details).
+
+Original Hitmen PSX-EXE release available from [Hitmen](http://hitmen.c02.at/html/psx_releases.html),
+along with the official [source code release](http://hitmen.c02.at/html/psx_sources.html).
+
+To compile and run _this_ conversion:
+
+    cd hit-greensrc
+    cargo psx run
+
+From the intro:
+> Now go take a look at  
+the source for this  
+little thing and get  
+coding!!  
+     - Silpheed  
+HITMEN - Ruling in 1998!
