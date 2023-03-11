@@ -7,6 +7,6 @@ thing.
 
 PAL only for now sorry, more to come when I'm not so busy :(
 
- - Silpheed/HITMEN 
+ - Silpheed/HITMEN
 
 
