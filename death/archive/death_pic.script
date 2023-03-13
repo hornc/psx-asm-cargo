@@ -1,0 +1,8 @@
+
+echo Script to load Death view proggy
+dload temp:death.tim $80120000
+echo dload hd0:temp/death2.tim $80120000
+echo dload temp:oneb.tim $80120000
+echo dload hd0:temp/psxinfo/new/font.tim $80120000
+load hd0:temp/psxinfo/new/death_pic.exe
+quit
