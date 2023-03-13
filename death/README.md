@@ -51,7 +51,7 @@ which will generate a new (larger) PSX executable `psx.exe`. We can now run this
 
 ## Screenshots
 
-There is no sound, there are two moving rectangle windows which display a different effect layer. The backgound changes colour with a glitchy gradient. It's pretty basic, but it was written in assembly by reverse engineering Yaroze libray functions.
+There is no sound, there are two moving rectangle windows which display a different effect layer. The backgound changes colour with a glitchy gradient. It's pretty basic, but it was written in assembly by reverse engineering Yaroze library functions.
 
 <img alt="demo screenshot 1" src="img/demo_s1.png" />
 
