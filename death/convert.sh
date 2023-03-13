@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copy and convert my original idosyncratic Amiga toolchain MIPS assembly:
+# Copy and convert my original idiosyncratic Amiga toolchain MIPS assembly:
 
 echo Copying original archive/Death_pic.asm to death_pic.s
 cp archive/Death_pic.asm death_pic.s

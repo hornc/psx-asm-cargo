@@ -16,11 +16,11 @@ Initially I modified `psexe.ld` to use `0x80100000`, but it seemed like multiple
 
 The biggest problem in the conversion and getting this to run was forgetting to add `.set noreorder` in the converted source.
 
-It's possible the program _is_ overwiting part of the library. This code is small enough, and uses very little of the library that it might get away with overlapping some part of the library.
+It's possible the program _is_ overwriting part of the library. This code is small enough, and uses very little of the library that it might get away with overlapping some part of the library.
 I'll figure it out later.
 
 The other mystery to solve is why an original PSX EXE as compiled on the Amiga I had as a backup doesn't run as well as the new compiled version in the emulator.
-This newly compiled version matches how I remember it running on the real hardware. The original EXE doesn't show the moving blocks correcyly -- they just glitch.
+This newly compiled version matches how I remember it running on the real hardware. The original EXE doesn't show the moving blocks correctly -- they just glitch.
 
 ## Build and run
 
@@ -40,6 +40,10 @@ which will generate a new (larger) PSX executable `psx.exe`. We can now run this
     mednafen psx.exe
 
 
-## Orginal files
+## Original files
 `archive/` contains the original files as taken from my A1200.
 
+* [Death_pic.asm](archive/Death_pic.asm) The original source code. It looks spASM _like_, but has extra symbols in front of hex and labels.
+* death.tim The image used in the demo. It has 3 panels, I'm assuming it is some official painting of the character Death from the DC Vertigo Sandman comics that I cropped, tiled, and filtered, but I can't remember the original source, or exactly how much I modified it.
+* [death_pic.s](archive/death_pic.s) I had to write a pre-compiler that took the .asm source, stripped out comments, and figured out label addresses and other symbols to get the code to compile using whatever MIPS assembler I had. It's possible that the style of ASM in the original is completely unique. I'm still trying to locate the scripts I used.
+* [death_pic.script](archive/death_pic.script) This is the original transfer script for the separate data and exe files. It does the job of a Siocons `auto` file. Presumably part of `PSXControl`?
