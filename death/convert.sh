@@ -16,7 +16,7 @@ sed -i 's/#\$/0x/g
 # hex values
 # comments
 # clean label refs $! prefix
-# clean lavel refs #! prefix
+# clean label refs #! prefix
 # more hex values
 
 # Register conversions (prepend $, r0 -> $r0)
