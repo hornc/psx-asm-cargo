@@ -12,12 +12,16 @@ Amazingly, this code compiles and runs in an emulator after the conversions, and
 Initially I modified `psexe.ld` to use `0x80100000`, but it seemed like multiple messed up versions worked just as well, so I tried using the unmodified default... and that just worked too, even though
 my code was overwriting some of the libps library.
 
-The latest version uses a cargo alias to build with `cargo-psx` using its `--load-offset` argument which sets the offset correctly. It'd be nice if the linker script recognised `.origin` directives
-and adjusted locations accoridingly, but currently it doesn't.
+The latest version uses a cargo alias to build with `cargo-psx` using its `--load-offset` argument which sets the offset correctly.
 
-The biggest problem in the conversion and getting this to run was forgetting to add `.set noreorder` in the converted source.
+    983040 = 0x80100000 - 0x80010000 = 0xf0000
 
-I'm not seeing evidence of controler input working yet. Start + Select is supposed to "Exit to CIP". There is no CIP serial program involved when running on an emulator, so I'm not sure what to expect when that occurs.
+i.e., (where we want the executable to go) - (the default location).
+It'd be nice if the linker script recognised `.origin` directives and adjusted locations accordingly, but currently it doesn't.
+
+The biggest problem in the [conversion](convert.sh) and getting this to run was forgetting to add `.set noreorder` in the converted source.
+
+I'm not seeing evidence of controller input working yet. Start + Select is supposed to "Exit to CIP". There is no CIP serial program involved when running on an emulator, so I'm not sure what to expect when that occurs.
 
 The other mystery to solve is why an original PSX EXE as compiled on the Amiga I had as a backup doesn't run as well as the new compiled version in the emulator.
 This newly compiled version matches how I remember it running on the real hardware. The original EXE doesn't show the moving blocks correctly -- they just glitch.
@@ -50,7 +54,7 @@ which will generate a new (larger) PSX executable `psx.exe`. We can now run this
 
 ## Screenshots
 
-There is no sound, there are two moving rectangle windows which display a different effect layer. The backgound changes colour with a glitchy gradient. It's pretty basic, but it was written in assembly by reverse engineering Yaroze library functions.
+There is no sound, there are two moving rectangle windows which display a different effect layer. The background changes colour with a glitchy gradient. It's pretty basic, but it was written in assembly by reverse engineering Yaroze library functions.
 
 <img alt="demo screenshot 1" src="img/demo_s1.png" />
 
