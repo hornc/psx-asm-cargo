@@ -16,3 +16,7 @@ Build:
 Build and run using Mednafen emulator:
 
     cargo psx run
+
+## Screenshot
+
+<img alt="screenshot of a yellow square on a purple background running in a PSX emulator" src="img/yellow-square.png" />
