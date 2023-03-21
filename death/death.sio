@@ -1,0 +1,3 @@
+local dload archive/death.tim 0x80120000
+local load target/mipsel-sony-psx/release/death.exe
+go

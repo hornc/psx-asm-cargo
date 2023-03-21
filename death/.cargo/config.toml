@@ -1,0 +1,5 @@
+[alias]
+yaroze = "psx build --load-offset 983040"
+
+[target.mipsel-sony-psx]
+runner = "mednafen"
