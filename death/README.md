@@ -9,15 +9,15 @@ It was written on an Amiga, and transferred to my modded PSX (it had a blue powe
 
 Amazingly, this code compiles and runs in an emulator after the conversions, and being passed through [Yarexe](https://github.com/gwald/Yarexe).
 
-I'm still trying to figure out why the load addresses don't seem correct, but it still works. The original EXE was meant to load to `0x80100000`, but the current
-`cargo-psx` ld script hardcodes the standard `0x80010000` location. It feels like this should conflict with `libps.exe`
+Initially I modified `psexe.ld` to use `0x80100000`, but it seemed like multiple messed up versions worked just as well, so I tried using the unmodified default... and that just worked too, even though
+my code was overwriting some of the libps library.
 
-Initially I modified `psexe.ld` to use `0x80100000`, but it seemed like multiple messed up versions worked just as well, so I tried using the unmodified default... and that just worked too.
+The latest version uses a cargo alias to build with `cargo-psx` using its `--load-offset` argument which sets the offset correctly. It'd be nice if the linker script recognised `.origin` directives
+and adjusted locations accoridingly, but currently it doesn't.
 
 The biggest problem in the conversion and getting this to run was forgetting to add `.set noreorder` in the converted source.
 
-It's possible the program _is_ overwriting part of the library. This code is small enough, and uses very little of the library that it might get away with overlapping some part of the library.
-I'll figure it out later.
+I'm not seeing evidence of controler input working yet. Start + Select is supposed to "Exit to CIP". There is no CIP serial program involved when running on an emulator, so I'm not sure what to expect when that occurs.
 
 The other mystery to solve is why an original PSX EXE as compiled on the Amiga I had as a backup doesn't run as well as the new compiled version in the emulator.
 This newly compiled version matches how I remember it running on the real hardware. The original EXE doesn't show the moving blocks correctly -- they just glitch.
@@ -26,10 +26,9 @@ This newly compiled version matches how I remember it running on the real hardwa
 
 Because this code requires the `libps.exe` Yaroze library to be loaded in memory, the standard `cargo build run` to compile and run in Mednafen _won't_ work.
 
-To build the PSX EXE:
+To build the PSX EXE, using [an alias](.cargo/config.toml) to set the correct Yaroze offset:
 
-    cargo psx build
-
+    cargo yaroze
 
 Then we need to create a standalone executable using [Yarexe](https://github.com/gwald/Yarexe):
 

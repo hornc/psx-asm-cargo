@@ -152,6 +152,7 @@ Builds and runs with standard `cargo`, and also tests that the assembly source c
 just to confirm that we are only using the Rust build environment for convenience.
 
 ### [yellow-square](yellow-square/)
+C.Horn, 2023.
 
 Inspired by [Lameguy64](http://lameguy64.net/)'s graphics tutorial (in C) http://lameguy64.net/tutorials/pstutorials/chapter1/2-graphics.html
 , part of [Lameguy64's PlayStation Programming Series](http://lameguy64.net/tutorials/pstutorials/).
@@ -161,7 +162,13 @@ Draw a single graphics primitive (yellow square) on a purple background.
 Uses Silpheed/[HITMEN](http://hitmen.c02.at/index.html)'s `silph.inc` PSX helpful asm routines, taken from the classic [Greentro intro source](http://hitmen.c02.at/html/psx_sources.html),
 and converted (by me) from [spASM](http://www.psxdev.net/forum/viewtopic.php?t=150) syntax to a more standard style which is compatible with GNU `as` and MARS MIPS assembly.
 
+### [Death](death)
+C.Horn, ~1999.
+
+A simple asm graphics demo using some of the Net Yaroze libps library functions, developed on an Amiga. Conversion script to get it compiling with this toolchain.
+
 ### [Greentro](hit-greensrc)
+Silpheed/Hitmen, 1998.
 
 Source conversion of the classic 1998 Greentro spASM intro into the form that compiles with this toolchain.
 
